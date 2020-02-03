@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.NaturalId;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
@@ -24,12 +25,13 @@ import javax.validation.Valid;
 public class User implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @JsonProperty("user")
+  @JsonProperty("id_user")
   @Column(name = "id_user")
   private Long id = null;
 
   @JsonProperty("username")
   @Column(name = "user_name",unique = true)
+//  @NaturalId //TODO to look
   private String username = null;
 
   @JsonProperty("firstName")
