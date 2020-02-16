@@ -9,10 +9,7 @@ import com.yaakoub.cryptocurrencymarket.model.ModelApiResponse;
 import com.yaakoub.cryptocurrencymarket.model.User;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -21,15 +18,16 @@ import javax.validation.Valid;
 @Api(value = "register", description = "the register API")
 public interface RegisterApi {
 
-    @ApiOperation(value = "Add a new user to the system", nickname = "addUser", notes = "", response = ModelApiResponse.class, tags={ "user", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "successful operation", response = ModelApiResponse.class),
-        @ApiResponse(code = 405, message = "Invalid input") })
-    @RequestMapping(value = "/register",
-        produces = { "application/json", "application/xml" }, 
-        consumes = { "application/json", "application/xml" },
-        method = RequestMethod.POST)
+//    @ApiOperation(value = "Add a new user to the system", nickname = "addUser", notes = "", response = ModelApiResponse.class, tags={ "user", })
+//    @ApiResponses(value = {
+//        @ApiResponse(code = 200, message = "successful operation", response = ModelApiResponse.class),
+//        @ApiResponse(code = 405, message = "Invalid input") })
+//    @RequestMapping(value = "/register",
+//        produces = { "application/json", "application/xml" },
+//        consumes = { "application/json", "application/xml" },
+//        method = RequestMethod.POST)
     @CrossOrigin("*")
+    @PostMapping(path = "/register")
     ResponseEntity<ModelApiResponse> addUser(@ApiParam(value = "User object that needs to be added to the system", required = true) @Valid @RequestBody User body);
 
 }

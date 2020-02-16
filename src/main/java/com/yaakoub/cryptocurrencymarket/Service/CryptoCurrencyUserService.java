@@ -1,7 +1,7 @@
 package com.yaakoub.cryptocurrencymarket.Service;
 
+import com.yaakoub.cryptocurrencymarket.model.Credentiel;
 import com.yaakoub.cryptocurrencymarket.model.Role;
-import com.yaakoub.cryptocurrencymarket.model.RoleEnum;
 import com.yaakoub.cryptocurrencymarket.model.User;
 import com.yaakoub.cryptocurrencymarket.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +23,14 @@ public class CryptoCurrencyUserService {
         return cryptoCurrencyUserRepository.findByusername(username);
     }
 
+    public User getCryptoCurrencyUserByLogin(Credentiel credentiel ) {
+        return cryptoCurrencyUserRepository.findByusernameAndFamilyName(credentiel.getLogin(), credentiel.getPassword());
+    }
+
+    public List<User> getUsers() {
+        return (List<User>) cryptoCurrencyUserRepository.findAll();
+    }
+
 
     public User createUser(User user) {
         return cryptoCurrencyUserRepository.save(user);
@@ -38,5 +46,8 @@ public class CryptoCurrencyUserService {
     }
 
 
+    public User getUsersById(Long id) {
+        return  cryptoCurrencyUserRepository.findById(id).orElse(null);
+    }
 }
 

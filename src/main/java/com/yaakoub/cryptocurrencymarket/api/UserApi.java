@@ -9,6 +9,7 @@ import com.yaakoub.cryptocurrencymarket.model.RoleEnum;
 import com.yaakoub.cryptocurrencymarket.model.User;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,28 +19,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Api(value = "user", description = "the user API")
 public interface UserApi {
 
-    @ApiOperation(value = "Returs current user details.", nickname = "getCurrentUser", notes = "", response = User.class, authorizations = {
-        @Authorization(value = "cookieAuth")
-    }, tags={ "user", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "successful operation", response = User.class),
-        @ApiResponse(code = 400, message = "Invalid username/password supplied") })
-    @RequestMapping(value = "/user",
-        produces = { "application/json", "application/xml" }, 
-        method = RequestMethod.GET)
+//    @ApiOperation(value = "Returs current user details.", nickname = "getCurrentUser", notes = "", response = User.class, authorizations = {
+//        @Authorization(value = "cookieAuth")
+//    }, tags={ "user", })
+//    @ApiResponses(value = {
+//        @ApiResponse(code = 200, message = "successful operation", response = User.class),
+//        @ApiResponse(code = 400, message = "Invalid username/password supplied") })
+//    @RequestMapping(value = "/user",
+//        produces = { "application/json", "application/xml" },
+//        method = RequestMethod.GET)
+    @GetMapping(path = "/user")
     ResponseEntity<User> getCurrentUser();
 
 
-    @ApiOperation(value = "Get user by user name", nickname = "getUserByName", notes = "", response = User.class, authorizations = {
-        @Authorization(value = "cookieAuth")
-    }, tags={ "user", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "successful operation", response = User.class),
-        @ApiResponse(code = 400, message = "Invalid username supplied"),
-        @ApiResponse(code = 404, message = "User not found") })
-    @RequestMapping(value = "/user/{username}",
-        produces = { "application/json", "application/xml" }, 
-        method = RequestMethod.GET)
+//    @ApiOperation(value = "Get user by user name", nickname = "getUserByName", notes = "", response = User.class, authorizations = {
+//        @Authorization(value = "cookieAuth")
+//    }, tags={ "user", })
+//    @ApiResponses(value = {
+//        @ApiResponse(code = 200, message = "successful operation", response = User.class),
+//        @ApiResponse(code = 400, message = "Invalid username supplied"),
+//        @ApiResponse(code = 404, message = "User not found") })
+//    @RequestMapping(value = "/user/{username}",
+//        produces = { "application/json", "application/xml" },
+//        method = RequestMethod.GET)
+    @GetMapping(path = "/user/{username}")
     ResponseEntity<User> getUserByName(@ApiParam(value = "The name that needs to be fetched. Use user1 for testing.", required = true) @PathVariable("username") String username);
 
 }
