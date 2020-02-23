@@ -7,6 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,15 +24,11 @@ import java.util.Map;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private DataSource dataSource;
 
     @Bean
     public UserDetailsService userDetailsService() {
         return new CurrencyUserDetailsService();
     }
-
-    ;
 
 
     @Override
@@ -57,29 +54,16 @@ public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity)
             throws Exception {
-        httpSecurity.cors();
-        httpSecurity.csrf().disable()
+        httpSecurity.cors().and().csrf().disable()
                 .httpBasic().and().authorizeRequests()
-                .antMatchers("/h2-console/**", "/register", "/authenticate")
+                .antMatchers("/h2-console/**", "/register", "/authenticate", "/roles")
                 .permitAll()
                 .anyRequest()
-                .authenticated()
-                .and()
-                .formLogin();
-        httpSecurity.csrf()
-                .ignoringAntMatchers("/h2-console/**", "/register", "/authenticate");
+                .authenticated();
+    }
 
-
-
-//        httpSecurity.csrf().
-//                disable()
-//                .authorizeRequests()
-//                .antMatchers(HttpMethod.OPTIONS, "/authenticate")
-//                .permitAll()
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .httpBasic();
-//        httpSecurity.cors();
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/h2-console/**");
     }
 }

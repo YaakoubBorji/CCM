@@ -20,11 +20,11 @@ public class CryptoCurrencyUserService {
     RoleRepository roleRepository;
 
     public User getCryptoCurrencyUserById(String username) {
-        return cryptoCurrencyUserRepository.findByusername(username);
+        return cryptoCurrencyUserRepository.findByuserName(username);
     }
 
     public User getCryptoCurrencyUserByLogin(Credentiel credentiel ) {
-        return cryptoCurrencyUserRepository.findByusernameAndFamilyName(credentiel.getLogin(), credentiel.getPassword());
+        return cryptoCurrencyUserRepository.findByuserNameAndFamilyName(credentiel.getLogin(), credentiel.getPassword());
     }
 
     public List<User> getUsers() {

@@ -5,10 +5,10 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 
-    public User findByusername(String username);
+    public User findByuserName(String username);
 
     public User save(User user);
 
-    public User findByusernameAndFamilyName(String username, String familyName);
+    public User findByuserNameAndFamilyName(String username, String familyName);
 
 }

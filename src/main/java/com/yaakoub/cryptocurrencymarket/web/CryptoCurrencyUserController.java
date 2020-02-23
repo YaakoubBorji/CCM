@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 //@RequestMapping("/ws/v1")
 @CrossOrigin("http://localhost:4200")
-public class CryptoCurrencyUserController {
+ public class CryptoCurrencyUserController {
     @Autowired
     CryptoCurrencyUserService cryptoCurrencyUserService;
 
@@ -27,11 +27,11 @@ public class CryptoCurrencyUserController {
         return cryptoCurrencyUserService.getRoles();
     }
 
+
     @PostMapping("/authenticate")
     private User login(@RequestBody Credentiel crendentiel) {
         return cryptoCurrencyUserService.getCryptoCurrencyUserByLogin(crendentiel);
     }
-
 
     @GetMapping("/users")
     private List<User> retrieveUsers() {

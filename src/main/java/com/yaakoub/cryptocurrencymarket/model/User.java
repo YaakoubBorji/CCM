@@ -2,8 +2,6 @@ package com.yaakoub.cryptocurrencymarket.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
@@ -25,9 +23,9 @@ public class User implements Serializable {
   @Column(name = "id_user")
   private Long id = null;
 
-  @JsonProperty("username")
+  @JsonProperty("userName")
   @Column(name = "user_name",unique = true)
-  private String username = null;
+  private String userName = null;
 
   @JsonProperty("firstName")
   @Column(name = "first_name")
@@ -41,12 +39,12 @@ public class User implements Serializable {
   @Enumerated(EnumType.STRING)
   private RoleEnum role = null;
 
-  public String getUsername() {
-    return username;
+  public String getUserName() {
+    return userName;
   }
 
-  public void setUsername(String username) {
-    this.username = username;
+  public void setUserName(String userName) {
+    this.userName = userName;
   }
 
   public String getFirstName() {

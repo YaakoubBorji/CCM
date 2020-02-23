@@ -42,7 +42,7 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
                         + ". No user with this name is defined and enabled in the system.");
             }
 
-            return new ServerSideUser(user.getUsername(),"{noop}"+user.getFamilyName(),user.getFamilyName(),findAuthorities(user));
+            return new ServerSideUser(user.getUserName(),"{noop}"+user.getFamilyName(),user.getFamilyName(),findAuthorities(user));
         });
     }
 
