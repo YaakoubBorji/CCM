@@ -28,8 +28,7 @@ CREATE TABLE user_currency (
 
 INSERT INTO user_currency (user_name, first_name, family_name,role) VALUES
   ('yabo', 'yaakoub', 'borji','ADMINISTRATOR'),
-  ('chao', 'chaimaa', 'zraidi','USER'),
-  ('kati', 'khadija', 'najih','USER');
+  ('luxtrust', 'lux', 'trust','USER');
 
 DROP TABLE IF EXISTS role;
 
