@@ -39,36 +39,8 @@ public class User implements Serializable {
   @Enumerated(EnumType.STRING)
   private RoleEnum role = null;
 
-  public String getUserName() {
-    return userName;
-  }
-
-  public void setUserName(String userName) {
-    this.userName = userName;
-  }
-
-  public String getFirstName() {
-    return firstName;
-  }
-
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
-
-  public String getFamilyName() {
-    return familyName;
-  }
-
-  public void setFamilyName(String familyName) {
-    this.familyName = familyName;
-  }
-
-  public RoleEnum getRole() {
-    return role;
-  }
-
-  public void setRole(RoleEnum role) {
-    this.role = role;
+  public static User userFactory(){
+    return new User();
   }
 }
 

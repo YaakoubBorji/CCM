@@ -15,17 +15,13 @@ import javax.validation.Valid;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-01-29T15:18:53.033Z")
 @Api(value = "register", description = "the register API")
+@CrossOrigin("http://localhost:4200")
 public interface RegisterApi {
 
-//    @ApiOperation(value = "Add a new user to the system", nickname = "addUser", notes = "", response = ModelApiResponse.class, tags={ "user", })
-//    @ApiResponses(value = {
-//        @ApiResponse(code = 200, message = "successful operation", response = ModelApiResponse.class),
-//        @ApiResponse(code = 405, message = "Invalid input") })
-//    @RequestMapping(value = "/register",
-//        produces = { "application/json", "application/xml" },
-//        consumes = { "application/json", "application/xml" },
-//        method = RequestMethod.POST)
-    @CrossOrigin("*")
+    @ApiOperation(value = "Add a new user to the system", nickname = "addUser", notes = "", response = ModelApiResponse.class, tags={ "user", })
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "successful operation", response = ModelApiResponse.class),
+        @ApiResponse(code = 405, message = "Invalid input") })
     @PostMapping(path = "/register")
     ResponseEntity<ModelApiResponse> addUser(@ApiParam(value = "User object that needs to be added to the system", required = true) @Valid @RequestBody User body);
 

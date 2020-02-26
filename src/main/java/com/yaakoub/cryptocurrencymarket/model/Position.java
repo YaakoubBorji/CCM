@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
@@ -19,13 +20,14 @@ import javax.validation.Valid;
 
 @Entity
 @Table(name = "position")
+@Data
 public class Position  implements Serializable {
 
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id_position")
-  @JsonProperty("idPosition")
+  @JsonProperty("positionId")
   private Long id = null;
 
   @JsonProperty("currency")
@@ -72,6 +74,10 @@ public class Position  implements Serializable {
 
   @JsonProperty("status")
   private StatusEnum status = null;
+
+  public static Position positionFactory(){
+    return new Position();
+  }
 
 }
 

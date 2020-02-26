@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.transaction.support.TransactionTemplate;
-
 import java.util.Collection;
 
 public abstract class AbstractUserDetailsService implements UserDetailsService {
@@ -42,19 +41,15 @@ public abstract class AbstractUserDetailsService implements UserDetailsService {
                         + ". No user with this name is defined and enabled in the system.");
             }
 
-            return new ServerSideUser(user.getUserName(),"{noop}"+user.getFamilyName(),user.getFamilyName(),findAuthorities(user));
+            return new ServerSideUser(user.getId(),user.getUserName(),"{noop}"+user.getFamilyName(),user.getFamilyName(),findAuthorities(user));
         });
     }
 
     protected User getUser(final String username) {
-
-
         User user = cryptoCurrencyUserService.getCryptoCurrencyUserById(username);
-
         if (user == null) {
             throw new UsernameNotFoundException("The user " + username + " is not found.");
         }
-
         return user;
     }
 
