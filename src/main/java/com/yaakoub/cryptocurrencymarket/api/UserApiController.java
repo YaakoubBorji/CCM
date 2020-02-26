@@ -1,18 +1,19 @@
 package com.yaakoub.cryptocurrencymarket.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.yaakoub.cryptocurrencymarket.model.RoleEnum;
+import com.yaakoub.cryptocurrencymarket.Service.CryptoCurrencyUserService;
+import com.yaakoub.cryptocurrencymarket.model.Credentiel;
+import com.yaakoub.cryptocurrencymarket.model.Role;
 import com.yaakoub.cryptocurrencymarket.model.User;
+import com.yaakoub.cryptocurrencymarket.security.AuthenticationService;
 import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
+import java.util.List;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-01-29T15:18:53.033Z")
 
@@ -21,61 +22,40 @@ public class UserApiController implements UserApi {
 
     private static final Logger log = LoggerFactory.getLogger(UserApiController.class);
 
-    private final ObjectMapper objectMapper;
+    @Autowired
+    private CryptoCurrencyUserService cryptoCurrencyUserService;
 
-    private final HttpServletRequest request;
+    @Autowired
+    private AuthenticationService authenticationService;
 
-    @org.springframework.beans.factory.annotation.Autowired
-    public UserApiController(ObjectMapper objectMapper, HttpServletRequest request) {
-        this.objectMapper = objectMapper;
-        this.request = request;
-    }
 
     public ResponseEntity<User> getCurrentUser() {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<User>(objectMapper.readValue("{  \"firstName\" : \"firstName\",  \"role\" : { },  \"familyName\" : \"familyName\",  \"id\" : 0,  \"username\" : \"username\"}", User.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
-
-        if (accept != null && accept.contains("application/xml")) {
-            try {
-                return new ResponseEntity<User>(objectMapper.readValue("<User>  <id>123456789</id>  <username>aeiou</username>  <firstName>aeiou</firstName>  <familyName>aeiou</familyName></User>", User.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/xml", e);
-                return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
-
-        return new ResponseEntity<User>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<User>(cryptoCurrencyUserService.getCryptoCurrencyUserById(authenticationService.getServerSideUser().getUsername()),HttpStatus.OK) ;
     }
 
     public ResponseEntity<User> getUserByName(@ApiParam(value = "The name that needs to be fetched. Use user1 for testing.",required=true) @PathVariable("username") String username) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<User>(objectMapper.readValue("{  \"firstName\" : \"firstName\",  \"role\" : { },  \"familyName\" : \"familyName\",  \"id\" : 0,  \"username\" : \"username\"}", User.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
-
-        if (accept != null && accept.contains("application/xml")) {
-            try {
-                return new ResponseEntity<User>(objectMapper.readValue("<User>  <id>123456789</id>  <username>aeiou</username>  <firstName>aeiou</firstName>  <familyName>aeiou</familyName></User>", User.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/xml", e);
-                return new ResponseEntity<User>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
-
-        return new ResponseEntity<User>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<User>(cryptoCurrencyUserService.getCryptoCurrencyUserById(username),HttpStatus.OK);
     }
+
+    public ResponseEntity<User>  retrieveUsersById(@PathVariable ("id") Long id) {
+        return new ResponseEntity<User>(cryptoCurrencyUserService.getUsersById(id),HttpStatus.OK);
+    }
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<User>  login(@RequestBody Credentiel crendentiel) {
+        return new ResponseEntity<User>(cryptoCurrencyUserService.getCryptoCurrencyUserByLogin(crendentiel),HttpStatus.OK);
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> retrieveUsers() {
+        return new ResponseEntity<List<User>>(cryptoCurrencyUserService.getUsers(),HttpStatus.OK);
+    }
+
+    @GetMapping("/roles")
+    public ResponseEntity<List<Role>> getRole() {
+        return  new ResponseEntity<List<Role>>(cryptoCurrencyUserService.getRoles(),HttpStatus.OK);
+    }
+
 
 
 }

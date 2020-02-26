@@ -9,7 +9,10 @@ CREATE TABLE position (
 );
 
 INSERT INTO position (currency, amount, id_user,status) VALUES
-  ('bitcoin', '1000', 1, 1);
+  ('euro', '3500', 1, 1);
+
+  INSERT INTO position (currency, amount, id_user,status) VALUES
+  ('dollars', '1000', 2, 0);
 --
 --
 --
@@ -17,7 +20,7 @@ DROP TABLE IF EXISTS user_currency;
 
 CREATE TABLE user_currency (
   id_user INT AUTO_INCREMENT  PRIMARY KEY,
-  user_name VARCHAR(250) NOT NULL,
+  user_name VARCHAR(250) NOT NULL unique,
   first_name VARCHAR(250) NOT NULL,
   family_name VARCHAR(250) DEFAULT NULL,
   role VARCHAR(250) NOT NULL
@@ -26,7 +29,7 @@ CREATE TABLE user_currency (
 INSERT INTO user_currency (user_name, first_name, family_name,role) VALUES
   ('yabo', 'yaakoub', 'borji','ADMINISTRATOR'),
   ('chao', 'chaimaa', 'zraidi','USER'),
-  ('kati', 'khadija', 'najih','PP');
+  ('kati', 'khadija', 'najih','USER');
 
 DROP TABLE IF EXISTS role;
 
